@@ -1,68 +1,61 @@
-version: '3.8' 
+version: '3.9' 
 
 services:
         frontend:
                 container_name: frontend
-                build: 
-                        context: ./frontend
+                build:
+                        context: ./frontend/
                         dockerfile: Dockerfile
                 volumes:
-                        - ./:/app
-                        - /app/node_modules
+                        - ./frontend/:/frontend/
                 ports:
-                        - 3000:3000
+                        - "3000:3000"
                 stdin_open: true
-                environment:
-                        - CHOKIDAR_USEPOLLING=true # Live reload frontend when UI/UX files change
-                depends_on: 
-                        - mysqlserver
-                        - backend
-                        - nginx
-                command: npm start
+                command: "npm start"
 
-        backend: 
+        backend:
                 container_name: backend
-                build: 
-                        context: ./demo
-                        dockerfile: Dockerfile
+                build:
+                        context: ./backend/
+                        dockerfile: Dockerfile 
                 volumes:
-                        - ./:/app
+                        - ./backend/:/backend/
+                        - ./backend/app.jar:/backend/app.jar 
                 ports:
-                        - 8000:8000
-                depends_on: 
-                        - mysqlserver
-                        - nginx
+                        - "8000:8000"
+
+
+                                  #        depends_on: 
+                                 #        depends_onmysqlserver
+                                 #        depends_onnginx
                 # restart_on: always 
-                command: ./gradlew  
+                command: "./mvnw sprint-boot:run" 
                   
         nginx: 
                 container_name: nginx
-                image: nginx
+                image: nginx:latest
                 build: 
                         context: ./nginx
                         dockerfile: Dockerfile
                 volumes:
-                        - ./nginx.conf:/etc/nginx/nginx.conf:ro # Read only
+                        - ./nginx/nginx.conf:/nginx/nginx.conf:ro # Read only
                 ports: 
-                        - 8080:80 
-                # Do i need to config proxy url here? 
+                        - "80:8080" 
                 environment: 
                         - NGINX_HOST=localhost 
                         - NGINX_PORT=80
-                command: [nginx-debug, '-g', 'daemon off;'] #NOTE: Debug mode is on!
-
-            #TODO: Database service is needed -> Add Mysql or Postgresql 
+                command: "nginx-debug -g, daemon off;" #NOTE: Debug mode is on!
 
                 
         mysqlserver: #TODO setup script for testing 
                 image: mysql
                 ports:
-                        - 3306:3306
+                        - "3306:3306"
                 environment:
                         - MYSQL_ROOT_PASSWORD=
                         - MYSQL_ALLOW_EMPTY_PASSWORD=true
-                        - MYSQL_USER=coffeeshopuser
-                        - MYSQL_PASSWORD=coffeeshop
+                        - MYSQL_USER=user
+                        - MYSQL_PASSWORD=passwd
                         - MYSQL_DATABASE=ShopDB
                 volumes:
                         - mysql_data:/var/lib/mysql

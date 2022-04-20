@@ -1,18 +1,17 @@
 FROM node:16
  
-#WORKDIR /usr/src/app
- 
-COPY package*.json ./
+COPY . .
 
 # TODO: Add install/setup for tailwindcss 
 RUN npm install
  
 # Do I need to remove node_modules?
-COPY . ./app 
 # NOTE:  Nginx proxy will re-map ports
 EXPOSE 3000
- 
-CMD [ "npm", "start" ]
+
+RUN npm start  
+#ENTRYPOINT ["bash", "entrypoint.sh"] 
+#CMD [ "npm", "start" ]
 
 ## production environment
 #FROM nginx:0.16.0-alpine
