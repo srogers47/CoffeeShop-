@@ -4,5 +4,5 @@ WORKDIR ./nginx
 COPY . .
 EXPOSE 80
 
-CMD ["nginx-debug", "-g", "daemon off"] 
-
+# NEED CMD ?
+CMD service nginx restart

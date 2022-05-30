@@ -1,16 +1,20 @@
-FROM node:16
+FROM node
  
-COPY . .
+COPY . ./frontend
+copy package.json package.json 
 
 # TODO: Add install/setup for tailwindcss 
-RUN npm install
+
+
+RUN npm update -g 
+RUN npm install --save
  
 # Do I need to remove node_modules?
 # NOTE:  Nginx proxy will re-map ports
 EXPOSE 3000
 
-RUN npm start  
-#ENTRYPOINT ["bash", "entrypoint.sh"] 
+CMD npm start  
+
 #CMD [ "npm", "start" ]
 
 ## production environment
