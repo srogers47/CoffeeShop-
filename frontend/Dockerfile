@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
  
 # Do I need to remove node_modules?
-COPY . ./app 
+COPY . ./
 # NOTE:  Nginx proxy will re-map ports
 EXPOSE 3000
  
