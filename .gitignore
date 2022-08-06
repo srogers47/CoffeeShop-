@@ -1,3 +1,6 @@
+# workspace
+*.txt 
+
 # Compiled class file
 *.class
 

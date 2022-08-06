@@ -1,7 +1,8 @@
-FROM eclipse-temurin:17
+FROM gradle
 
-COPY build/libs/*.jar app.jar/
-
+ADD --chown=gradle . ./server
+WORKDIR ./server 
 EXPOSE 8080
+ 
+CMD ["gradle", "--stacktrace", "run"] 
 
-ENTRYPOINT ["java","-jar","/app.jar"]
