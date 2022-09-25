@@ -9,23 +9,34 @@ group = 'com.social'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+
 repositories {
 	mavenCentral()
 }
-
-// TODO Add dependancies, do they each have a testimplementation? 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
        
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa 
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.0")
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.0'
 
-	// https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api  
+	// Mysql connector - https://spring.io/guides/gs/accessing-data-mysql/
+	compileOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+	implementation 'mysql:mysql-connector-java:8.0.15'
+
+	// Persistent data - https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api  
 	implementation 'javax.persistence:javax.persistence-api:2.2' 
 
-	// https://mvnrepository.com/artifact/org.projectlombok/lombok  
+	// Documentation - https://mvnrepository.com/artifact/org.projectlombok/lombok  
 	compileOnly 'org.projectlombok:lombok:1.18.24'
+
+	// TODO java-grahql 	
+	
+	// https://netflix.github.io/dgs/getting-started/
+//	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+//    	implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
+		
+	
 
 }
 

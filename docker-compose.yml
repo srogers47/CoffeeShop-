@@ -33,16 +33,18 @@ services:
                         - mysqlserver
                         - nginx
                 # restart_on: always 
-                command: ./gradlew  
+                command: ./gradlew bootRun  --info
                   
         nginx: 
                 container_name: nginx
-                image: nginx
                 build: 
                         context: ./nginx
                         dockerfile: Dockerfile
-                volumes: #NOTE If new nginx dir pops up it's because the nginx/ is repeated after it was ser in context
-                        - ./nginx/:/etc/nginx/
+                volumes: 
+                        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+                #conf.d/default.conf 
+                #- ./nginx.conf:/etc/nginx/nginx.conf
+                
                 ports: 
                         - 8080:80 
                 # Do i need to config proxy url here? 
