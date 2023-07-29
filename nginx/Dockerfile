@@ -1,5 +1,5 @@
 # production environment
-FROM nginx:1.23.1 
+FROM nginx:1.24 
 #COPY --from=build /app/build /usr/share/nginx/html
 #RUN rm /etc/nginx/conf.d/default.conf 
 COPY /nginx.conf /etc/nginx/conf.d
